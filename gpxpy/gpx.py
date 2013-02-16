@@ -325,6 +325,17 @@ class GPXTrackPoint(mod_geo.Location):
         if self.position_dilution:
             content += mod_utils.to_xml('pdop', content=self.position_dilution)
 
+        # Check for extension stuff
+        if self.hr is not None or self.cad is not None:
+            extcont = ''
+            if self.hr:
+                extcont += mod_utils.to_xml('gpxtpx:hr', content=self.hr)
+            if self.cad:
+                extcont += mod_utils.to_xml('gpxtpx:cad', content=self.cad)
+            extinner = mod_utils.to_xml('gpxtpx:TrackPointExtensions', content=extcont)
+            extwrap = mod_utils.to_xml('extensions', content=extinner)
+            content += extwrap
+
         return mod_utils.to_xml('trkpt', {'lat': self.latitude, 'lon': self.longitude}, content=content)
 
     def time_difference(self, track_point):
