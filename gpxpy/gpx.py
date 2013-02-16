@@ -287,7 +287,8 @@ class GPXTrackPoint(mod_geo.Location):
     position_dilution = None
 
     def __init__(self, latitude, longitude, elevation=None, time=None, symbol=None, comment=None,
-            horizontal_dilution=None, vertical_dilution=None, position_dilution=None, hr=None):
+            horizontal_dilution=None, vertical_dilution=None, position_dilution=None, hr=None,
+            cad=None):
         mod_geo.Location.__init__(self, latitude, longitude, elevation)
 
         self.time = time
@@ -297,8 +298,9 @@ class GPXTrackPoint(mod_geo.Location):
         self.horizontal_dilution = horizontal_dilution
         self.vertical_dilution = vertical_dilution
         self.position_dilution = position_dilution
-        
+
         self.hr = hr
+        self.cad = cad
 
     def remove_time(self):
         """ Will remove time metadata. """

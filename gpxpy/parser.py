@@ -330,9 +330,14 @@ class GPXParser(AbstractXMLParser):
         if hr_node:
             hr = mod_utils.to_number(self.get_node_data(hr_node))
 
+        cad_node = mod_utils.find_first_node(trackpointextensions_node, 'gpxtpx:cad')
+        cad = 0
+        if cad_node:
+            cad = mod_utils.to_number(self.get_node_data(cad_node))
+
         return mod_gpx.GPXTrackPoint(latitude=latitude, longitude=longitude, elevation=elevation, time=time,
                 symbol=symbol, comment=comment, horizontal_dilution=hdop, vertical_dilution=vdop, 
-                position_dilution=pdop, hr=hr)
+                position_dilution=pdop, hr=hr, cad=cad)
 
 class KMLParser(AbstractXMLParser):
     """
