@@ -1571,12 +1571,19 @@ class GPX:
         for track in self.tracks:
             content += track.to_xml(version)
 
+        schemas = 'http://www.topografix.com/GPX/1/1'
+        schemas += ' http://www.topografix.com/GPX/1/1/gpx.xsd'
+        schemas += ' http://www.garmin.com/xmlschemas/GpxExtensions/v3'
+        schemas += ' http://www.garmin.com/xmlschemas/GpxExtensionsv3.xsd'
+        schemas += ' http://www.garmin.com/xmlschemas/TrackPointExtension/v1'
+        schemas += ' http://www.garmin.com/xmlschemas/TrackPointExtensionv1.xsd'
         xml_attributes = {
                 'version': '1.0',
-                'creator': 'gpx.py -- https://github.com/tkrajina/gpxpy',
+                'creator': 'gpx.py -- https://github.com/j2sol/gpxpy',
                 'xmlns:xsi': 'http://www.w3.org/2001/XMLSchema-instance',
                 'xmlns': 'http://www.topografix.com/GPX/1/0',
-                'xsi:schemaLocation': 'http://www.topografix.com/GPX/1/0 http://www.topografix.com/GPX/1/0/gpx.xsd',
+                'xsi:schemaLocation': schemas,
+                'xmlns:gpxtpx': 'http://www.garmin.com/xmlschemas/TrackPointExtension/v1',
        }
 
         return '<?xml version="1.0" encoding="UTF-8"?>\n' + mod_utils.to_xml('gpx', attributes=xml_attributes, content=content).strip()
